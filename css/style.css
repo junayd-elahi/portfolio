@@ -762,3 +762,32 @@ html:not(.js) [data-reveal] { opacity: 1; transform: none; }
   .hero__title .word > span, .p-hero__title .word > span { transform: none; }
   .marquee__track { animation: none; }
 }
+
+/* ---------- Typing demo (Parkinson's project) ---------- */
+.td { margin: 0 0 var(--s-5); padding: var(--pad); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.td__input {
+  display: block; width: 100%; resize: vertical; min-height: 96px;
+  padding: var(--s-4); border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong); background: var(--bg); color: var(--text);
+  font: inherit; font-size: var(--fs-base); line-height: 1.5;
+  transition: border-color .25s, box-shadow .25s;
+}
+.td__input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(var(--accent-rgb), .12); }
+.td__touch { margin: var(--s-3) 0 0 !important; font-size: var(--fs-sm) !important; }
+.td__bars { display: flex; align-items: flex-end; gap: 3px; height: 96px; margin: var(--s-5) 0 var(--s-2); padding-bottom: 1px; border-bottom: 1px solid var(--line-strong); }
+.td__bar { flex: 1 1 0; max-width: 14px; min-width: 3px; border-radius: 3px 3px 0 0; background: var(--muted); transition: height .25s var(--ease); animation: barIn .3s var(--ease); }
+.td__bar.is-left { background: var(--accent); }
+.td__bar.is-right { background: color-mix(in srgb, var(--accent) 35%, var(--text)); }
+@keyframes barIn { from { transform: scaleY(0); transform-origin: bottom; } }
+.td__legend { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); margin-bottom: var(--s-5); font-family: var(--font-mono); font-size: var(--fs-label); color: var(--muted); }
+.td__legend .is-left::before, .td__legend .is-right::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; background: var(--accent); }
+.td__legend .is-right::before { background: color-mix(in srgb, var(--accent) 35%, var(--text)); }
+.td__stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--s-3); margin: 0 0 var(--s-5); }
+.td__stats div { padding: var(--s-3) var(--s-4); border-radius: var(--radius-sm); background: var(--surface-2); border: 1px solid var(--line); }
+.td__stats dt { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: var(--tr-label); color: var(--muted); margin-bottom: var(--s-1); line-height: var(--lh-snug); }
+.td__stats dd { margin: 0; font-size: var(--fs-h4); font-weight: 600; font-variant-numeric: tabular-nums; }
+.td__stats small { font-size: var(--fs-sm); font-weight: 400; color: var(--muted); }
+.article .td__dirs { margin: 0 0 var(--s-5); font-variant-numeric: tabular-nums; }
+.article .td__dirs td:first-child { white-space: normal; }
+.td__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap; }
+.article .td__privacy { margin: 0; font-size: var(--fs-sm); line-height: 1.5; max-width: 52ch; }

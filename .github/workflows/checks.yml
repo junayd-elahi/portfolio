@@ -1,0 +1,33 @@
+name: Site checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 7 * * 1" # every Monday, to catch external links that break over time
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: Broken links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check every link and image on the site
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --include-fragments
+            --max-retries 3
+            --accept 200,206,429
+            --exclude 'linkedin\.com'
+            --exclude 'fonts\.googleapis\.com'
+            --exclude 'fonts\.gstatic\.com'
+            './**/*.html'
+          fail: true

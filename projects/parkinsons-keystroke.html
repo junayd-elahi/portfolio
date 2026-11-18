@@ -84,8 +84,39 @@
               <li>Directional statistics for left/right transitions (LL, LR, RL, RR)</li>
             </ul>
           </section>
+          <section id="try-it" data-reveal>
+            <h2><span class="num">03</span>Try it yourself</h2>
+            <p>Type anything below. It calculates the same kind of timing features the models used, live, from your own typing.</p>
+            <div class="td" id="typingDemo">
+              <textarea class="td__input" rows="3" placeholder="Start typing here..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Type here to see your keystroke timings"></textarea>
+              <p class="td__touch" hidden>Phone keyboards don't report key timings reliably, so this works best with a physical keyboard.</p>
+              <div class="td__bars" aria-hidden="true"></div>
+              <div class="td__legend" aria-hidden="true"><span class="is-left">Left hand</span><span class="is-right">Right hand</span><span>Hold time per key, most recent on the right</span></div>
+              <dl class="td__stats">
+                <div><dt>Keystrokes</dt><dd data-out="keys">0</dd></div>
+                <div><dt>Mean hold</dt><dd><span data-out="hold">–</span> <small>ms</small></dd></div>
+                <div><dt>Hold variability (SD)</dt><dd><span data-out="holdsd">–</span> <small>ms</small></dd></div>
+                <div><dt>Mean flight</dt><dd><span data-out="flight">–</span> <small>ms</small></dd></div>
+                <div><dt>Flight variability (SD)</dt><dd><span data-out="flightsd">–</span> <small>ms</small></dd></div>
+                <div><dt>Mean latency</dt><dd><span data-out="latency">–</span> <small>ms</small></dd></div>
+                <div><dt>Hand asymmetry (L − R hold)</dt><dd><span data-out="asym">–</span> <small>ms</small></dd></div>
+              </dl>
+              <table class="td__dirs">
+                <thead><tr><th>Transition</th><th>LL</th><th>LR</th><th>RL</th><th>RR</th></tr></thead>
+                <tbody>
+                  <tr><td>Mean latency (ms)</td><td data-out="LL">–</td><td data-out="LR">–</td><td data-out="RL">–</td><td data-out="RR">–</td></tr>
+                  <tr><td>Count</td><td data-out="LLn">0</td><td data-out="LRn">0</td><td data-out="RLn">0</td><td data-out="RRn">0</td></tr>
+                </tbody>
+              </table>
+              <div class="td__foot">
+                <p class="td__privacy">Runs entirely in your browser. Nothing you type is stored or sent anywhere. This shows the features, it is not a diagnostic tool.</p>
+                <button type="button" class="btn btn--ghost btn--small td__reset">Reset</button>
+              </div>
+            </div>
+            <p><strong>Hold time</strong> is how long a key stays down. <strong>Flight time</strong> is the gap between releasing one key and pressing the next. <strong>Latency</strong> is press to press. Pauses over 2 seconds are ignored, much like the cleaning step filtered out implausible timings.</p>
+          </section>
           <section id="evaluation" data-reveal>
-            <h2><span class="num">03</span>Evaluation design</h2>
+            <h2><span class="num">04</span>Evaluation design</h2>
             <ul>
               <li><strong>Nested GroupKFold</strong>: 5 outer folds and 3 inner folds, grouped by <code>user_id</code>, so tuning and testing never share a participant.</li>
               <li><strong>Random Forest</strong> and <strong>XGBoost</strong>, each tuned with <code>GridSearchCV</code> on the inner folds, optimising F1.</li>
@@ -93,7 +124,7 @@
             </ul>
           </section>
           <section id="robustness" data-reveal>
-            <h2><span class="num">04</span>Robustness checks</h2>
+            <h2><span class="num">05</span>Robustness checks</h2>
             <p>To make sure the negative result wasn't an artefact of one choice, I added three further experiments:</p>
             <ul>
               <li><strong>Feature-group ablation</strong>: central-tendency vs variability vs combined feature sets.</li>
@@ -102,12 +133,12 @@
             </ul>
           </section>
           <section id="result" data-reveal>
-            <h2><span class="num">05</span>Result</h2>
+            <h2><span class="num">06</span>Result</h2>
             <div class="callout"><p>Under leakage-resistant evaluation, neither Random Forest nor XGBoost reliably separates Parkinson's from control above a majority-class baseline.</p></div>
             <p>That's the finding I set out to test. It's a reproducible benchmark showing that earlier results on this dataset don't hold once the same participant is kept out of both sides of the split.</p>
           </section>
           <section id="reproduce" data-reveal>
-            <h2><span class="num">06</span>Reproducibility</h2>
+            <h2><span class="num">07</span>Reproducibility</h2>
             <p>The pipeline is seven scripts, each reading the outputs of the one before:</p>
             <div class="pipeline"><span>01 clean</span> <i>&rarr;</i> <span>02 features</span> <i>&rarr;</i> <span>03 train</span> <i>&rarr;</i> <span>04 ablation</span> <i>&rarr;</i> <span>05 stability</span> <i>&rarr;</i> <span>06 smote</span> <i>&rarr;</i> <span>07 plots</span></div>
           </section>
@@ -130,5 +161,6 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script src="../js/typing-demo.js"></script>
 </body>
 </html>
