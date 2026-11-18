@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Healthcare ELT Pipeline | Junayd Elahi</title>
+  <meta name="description" content="An end-to-end ELT pipeline on synthetic patient data: Snowflake, dbt, Airflow, Docker and CI, with 39 data-quality tests." />
+  <meta property="og:title" content="Healthcare ELT Pipeline | Junayd Elahi" />
+  <meta property="og:description" content="An end-to-end ELT pipeline on synthetic patient data: Snowflake, dbt, Airflow, Docker and CI, with 39 data-quality tests." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2307090c'/><path d='M4 17h6l2-5 3 11 3-15 2 9h8' fill='none' stroke='%235eead4' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="../index.html" class="nav__logo" aria-label="Junayd Elahi, home"><span class="nav__mark">JE</span></a>
+    <nav class="nav__links" id="navLinks">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark theme">
+        <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="btn btn--small btn--ghost hide-sm" href="../assets/cv.pdf" target="_blank" rel="noopener">CV</a>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="p-hero">
+      <div class="container">
+        <a href="../index.html#work" class="back-link">&larr; All projects</a>
+        <p class="eyebrow" data-reveal>Data engineering · Personal project</p>
+        <h1 class="p-hero__title" data-split>Healthcare ELT Pipeline</h1>
+        <p class="p-hero__lede" data-reveal style="--d:.3s">An end-to-end ELT pipeline on Synthea synthetic patient data: Python ingestion, dbt models in Snowflake, Airflow in Docker, and tests that fail the build instead of letting bad data through.</p>
+        <div class="p-actions" data-reveal style="--d:.38s">
+          <a class="btn btn--primary btn--small magnetic" href="https://github.com/junayd-elahi/Healthcare-ELT" target="_blank" rel="noopener">View code on GitHub &nearr;</a>
+        </div>
+        <dl class="p-meta" data-reveal style="--d:.45s">
+          <div><dt>Role</dt><dd>Solo</dd></div>
+          <div><dt>Data</dt><dd>Synthea synthetic patients (~160K rows)</dd></div>
+          <div><dt>Type</dt><dd>Data engineering</dd></div>
+          <div><dt>Stack</dt><dd>Snowflake, dbt, Airflow, Docker, GitHub Actions, Python</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="tldr" data-reveal>
+        <div class="tldr__head"><strong>The short version</strong><span class="label" style="margin:0">~20 sec read</span></div>
+        <div><span class="label">Problem</span><p>Source healthcare data is shaped for storage, not analysis, and a single bad join can quietly add or drop rows while the build still reports success.</p></div>
+        <div><span class="label">What I did</span><p>Built a RAW &rarr; STAGING &rarr; MARTS warehouse with a star schema (2 facts, 6 dimensions), 39 tests, CI on every pull request and a daily Airflow DAG.</p></div>
+        <div><span class="label">Result</span><p>A fact table can't gain or lose rows without the build going red. The tests caught a real fan-out bug that had inflated a table by 9%.</p></div>
+      </div>
+
+      <div class="p-layout">
+        <aside class="toc">
+          <span class="label">On this page</span>
+          <ol></ol>
+        </aside>
+
+        <article class="article">
+          <section id="architecture" data-reveal>
+            <h2><span class="num">01</span>Architecture</h2>
+            <div class="pipeline"><span>Synthea CSVs</span> <i>&rarr;</i> <span>Python loader</span> <i>&rarr;</i> <span>RAW</span> <i>&rarr;</i> <span>STAGING</span> <i>&rarr;</i> <span>MARTS</span></div>
+            <p>Three layers, each with exactly one job.</p>
+            <p><strong>RAW</strong> is the landing zone. Every column is <code>VARCHAR</code> and nothing changes it. A malformed value in a future file should land here and fail a test downstream, not crash ingestion at 3am.</p>
+            <p><strong>STAGING</strong> is one view per source table (18 of them): renamed and cast, with no business logic and no joins.</p>
+            <p><strong>MARTS</strong> is the analyst-facing product: a dimensional model materialised as tables, so it's computed once at build time and fast to read.</p>
+            <figure class="figure figure--pad">
+              <img src="../assets/elt-lineage.png" alt="dbt lineage graph showing source tables flowing through staging views into fact and dimension tables." loading="lazy" />
+              <figcaption>Fig. 1: dbt lineage graph, from sources through staging to the marts.</figcaption>
+            </figure>
+          </section>
+          <section id="model" data-reveal>
+            <h2><span class="num">02</span>The dimensional model</h2>
+            <p>Two fact tables share <strong>conformed dimensions</strong>, so a question like "total spend per patient across encounters and medications" reconciles instead of producing two numbers nobody trusts.</p>
+            <div class="table-wrap"><table>
+              <thead><tr><th>Model</th><th>Grain</th><th>Rows</th></tr></thead>
+              <tbody>
+                <tr><td><code>fct_encounters</code></td><td>one row per clinical encounter</td><td>79,142</td></tr>
+                <tr><td><code>fct_medications</code></td><td>one row per medication prescribed</td><td>78,009</td></tr>
+                <tr><td><code>dim_patients</code></td><td>one row per patient</td><td>1,229</td></tr>
+                <tr><td><code>dim_providers</code></td><td>one row per provider</td><td>840</td></tr>
+                <tr><td><code>dim_organizations</code></td><td>one row per organisation</td><td>840</td></tr>
+                <tr><td><code>dim_medication_codes</code></td><td>one row per medication code</td><td>262</td></tr>
+                <tr><td><code>dim_encounter_codes</code></td><td>one row per encounter code</td><td>56</td></tr>
+                <tr><td><code>dim_payers</code></td><td>one row per payer</td><td>10</td></tr>
+              </tbody>
+            </table></div>
+            <p>The test for fact or dimension: <em>would you <code>SUM()</code> it, or <code>GROUP BY</code> it?</em></p>
+          </section>
+          <section id="decisions" data-reveal>
+            <h2><span class="num">03</span>Design decisions</h2>
+            <details class="decision">
+              <summary>Type honesty: DATE vs TIMESTAMP_TZ</summary>
+              <div><p>Synthea mixes date-only and full timestamp columns. Casting a date to a timestamp invents a 00:00:00 that doesn't exist, so every temporal column was checked against the raw data first. Column names follow the type: <code>_date</code> or <code>_timestamp</code>.</p></div>
+            </details>
+            <details class="decision">
+              <summary>Money as DECIMAL, not FLOAT</summary>
+              <div><p>Binary floating point can't represent cents exactly, and the error drifts when you aggregate. All cost columns are <code>DECIMAL(12,2)</code>.</p></div>
+            </details>
+            <details class="decision">
+              <summary>Clinical codes stay VARCHAR</summary>
+              <div><p>SNOMED and RxNorm codes look numeric, but they're identifiers. Casting to a number risks stripping leading zeros.</p></div>
+            </details>
+            <details class="decision">
+              <summary>Hashed surrogate keys</summary>
+              <div><p>Facts join to dimensions on deterministic hashes, ready for slowly changing dimensions. Auto-increment keys would change on every full rebuild.</p></div>
+            </details>
+            <details class="decision">
+              <summary>LEFT JOIN, never INNER JOIN</summary>
+              <div><p>An inner join silently drops unmatched facts. A left join keeps them with a NULL key, which a <code>not_null</code> test then turns into a loud failure. A join must never be allowed to quietly delete facts.</p></div>
+            </details>
+            <details class="decision">
+              <summary>PII stops at the marts boundary</summary>
+              <div><p>SSN, passport, licence and address-level detail are dropped before the analyst-facing layer. In healthcare that's a compliance question, not a style preference.</p></div>
+            </details>
+          </section>
+          <section id="bug" data-reveal>
+            <h2><span class="num">04</span>A real bug: fan-out</h2>
+            <p><code>fct_medications</code> first built at <strong>85,337 rows</strong> against a staging count of 78,009, and the build reported success because the model had no tests yet.</p>
+            <p><strong>Cause:</strong> the medication dimension was built with <code>SELECT DISTINCT code, description</code>. RxNorm is inconsistent about capitalisation, so 13 codes appeared with two descriptions each. Every medication with one of those codes matched two dimension rows, and the join duplicated it.</p>
+            <p><strong>Fix:</strong> deduplicate on the key, not the pair. The <code>order by</code> isn't cosmetic. Without it, Snowflake picks a row arbitrarily and tomorrow's build could differ.</p>
+            <pre><code>qualify row_number() over (
+    partition by code
+    order by description
+) = 1</code></pre>
+            <p><strong>Prevention:</strong> a <code>unique</code> test on the surrogate key now fails the build if the dimension ever gains a duplicate. Without it, a fact table that is 9% wrong ships.</p>
+          </section>
+          <section id="quality" data-reveal>
+            <h2><span class="num">05</span>Data quality &amp; CI</h2>
+            <div class="table-wrap"><table>
+              <thead><tr><th>Test</th><th>What it guarantees</th></tr></thead>
+              <tbody>
+                <tr><td><code>unique</code> on dimension keys</td><td>Fact tables can't fan out</td></tr>
+                <tr><td><code>not_null</code> on fact foreign keys</td><td>Fact tables can't have orphans</td></tr>
+                <tr><td><code>relationships</code></td><td>Every key resolves to a real dimension row, since Snowflake doesn't enforce foreign keys</td></tr>
+                <tr><td><code>accepted_values</code></td><td>Value domains checked against the real data, never guessed</td></tr>
+              </tbody>
+            </table></div>
+            <p>Everything runs with <code>dbt build</code>, so a model that fails its tests blocks its children from building on bad data. A GitHub Actions workflow builds all 26 models and 39 tests against an isolated CI schema on every pull request, and a failure blocks the merge. On its first run, CI caught a package-name error that a local cache had been hiding.</p>
+          </section>
+          <section id="ops" data-reveal>
+            <h2><span class="num">06</span>Orchestration &amp; security</h2>
+            <ul>
+              <li>A daily <strong>Airflow</strong> DAG in Docker runs <code>load_raw &rarr; dbt deps &rarr; dbt build</code>. Airflow handles scheduling and retries, and dbt keeps the model dependency graph, so there aren't two graphs to maintain.</li>
+              <li><code>catchup=False</code> on purpose, so a restart doesn't backfill every missed day and burn warehouse credits.</li>
+              <li>dbt runs as a <strong>least-privilege</strong> role through a dedicated key-pair service account, verified unable to write to RAW.</li>
+              <li>No secrets in the repo: <code>profiles.yml</code> only references environment variables, and credentials live in GitHub Secrets.</li>
+            </ul>
+          </section>
+          <section id="next" data-reveal>
+            <h2><span class="num">07</span>Known gaps &amp; next steps</h2>
+            <ul>
+              <li><code>fct_medications</code> has no primary-key test because Synthea's medications table has no natural key. That's documented rather than covered with a synthetic key that would give false confidence.</li>
+              <li>More fact tables (procedures, observations, conditions, immunisations) on the existing conformed dimensions.</li>
+              <li>Type 2 slowly changing dimensions on payer history.</li>
+              <li>Slim CI (<code>state:modified+</code>), and dependencies baked into the Airflow image instead of pip-installed per task.</li>
+            </ul>
+            <p><span class="note">The live Snowflake warehouse was decommissioned after the free trial. Clone the repo and point it at your own account to run it.</span></p>
+          </section>
+
+        </article>
+      </div>
+    </div>
+
+    <a href="parkinsons-keystroke.html" class="next-project">
+      <span class="label">Next project</span>
+      <strong>Keystroke Dynamics to Detect Parkinson's <span aria-hidden="true">&rarr;</span></strong>
+    </a>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>&copy; <span id="year"></span> Junayd Elahi</span>
+      <a href="../index.html#contact" class="muted">Get in touch &rarr;</a>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

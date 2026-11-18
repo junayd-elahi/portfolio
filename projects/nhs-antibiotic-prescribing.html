@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NHS Antibiotic Prescribing Outlier Detection | Junayd Elahi</title>
+  <meta name="description" content="A Python and DuckDB pipeline over 24 months of NHSBSA data, finding GP practices that prescribe antibiotics far above the national rate." />
+  <meta property="og:title" content="NHS Antibiotic Prescribing Outlier Detection | Junayd Elahi" />
+  <meta property="og:description" content="A Python and DuckDB pipeline over 24 months of NHSBSA data, finding GP practices that prescribe antibiotics far above the national rate." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2307090c'/><path d='M4 17h6l2-5 3 11 3-15 2 9h8' fill='none' stroke='%235eead4' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="../index.html" class="nav__logo" aria-label="Junayd Elahi, home"><span class="nav__mark">JE</span></a>
+    <nav class="nav__links" id="navLinks">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark theme">
+        <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="btn btn--small btn--ghost hide-sm" href="../assets/cv.pdf" target="_blank" rel="noopener">CV</a>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="p-hero">
+      <div class="container">
+        <a href="../index.html#work" class="back-link">&larr; All projects</a>
+        <p class="eyebrow" data-reveal>Healthcare analytics · Personal project</p>
+        <h1 class="p-hero__title" data-split>NHS Antibiotic Prescribing Outlier Detection</h1>
+        <p class="p-hero__lede" data-reveal style="--d:.3s">Which GP practices in England prescribe antibiotics well above the national rate, every month, for two years? A pipeline over 24 months of public NHSBSA prescribing data that tries to answer that fairly.</p>
+        <div class="p-actions" data-reveal style="--d:.38s">
+          <a class="btn btn--primary btn--small magnetic" href="https://github.com/junayd-elahi/nhs-antibiotic-prescribing" target="_blank" rel="noopener">View code on GitHub &nearr;</a>
+        </div>
+        <dl class="p-meta" data-reveal style="--d:.45s">
+          <div><dt>Role</dt><dd>Solo</dd></div>
+          <div><dt>Data</dt><dd>NHSBSA prescribing + GP list sizes, Sep 2024 to Aug 2026</dd></div>
+          <div><dt>Type</dt><dd>Personal project</dd></div>
+          <div><dt>Stack</dt><dd>Python, DuckDB, SQL, Matplotlib</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="tldr" data-reveal>
+        <div class="tldr__head"><strong>The short version</strong><span class="label" style="margin:0">~20 sec read</span></div>
+        <div><span class="label">Problem</span><p>Practice-level prescribing is published monthly, but it is strongly seasonal, not normalised for practice size, and the files change format between releases.</p></div>
+        <div><span class="label">What I did</span><p>Built an idempotent Python and DuckDB pipeline, converted counts to items per 1,000 patients, and compared every practice to the national average for the same month.</p></div>
+        <div><span class="label">Result</span><p>40 GP practices prescribed antibiotics at over 1.5&times; the national rate in every one of the 24 months.</p></div>
+      </div>
+
+      <div class="p-layout">
+        <aside class="toc">
+          <span class="label">On this page</span>
+          <ol></ol>
+        </aside>
+
+        <article class="article">
+          <section id="question" data-reveal>
+            <h2><span class="num">01</span>The question</h2>
+            <p>A raw prescription count mostly tells you which practices are big. Winter also pushes everyone up: nationally it runs at about 44 items per 1,000 patients in December against about 30 in August.</p>
+            <p>So I wasn't after the practices that had one bad month. I wanted the ones that were <strong>persistently</strong> high once size and season were taken out.</p>
+          </section>
+          <section id="pipeline" data-reveal>
+            <h2><span class="num">02</span>The pipeline</h2>
+            <div class="pipeline"><span>NHSBSA monthly files</span> <i>&rarr;</i> <span>Python loader</span> <i>&rarr;</i> <span>DuckDB</span> <i>&rarr;</i> <span>SQL rates</span> <i>&rarr;</i> <span>Outlier query</span></div>
+            <ul>
+              <li><strong>DuckDB</strong> as a local analytical database: free, embedded, no server.</li>
+              <li><strong>Idempotent loads.</strong> Each month is deleted and reinserted, so re-running a backfill never duplicates rows.</li>
+            </ul>
+          </section>
+          <section id="method" data-reveal>
+            <h2><span class="num">03</span>Method</h2>
+            <ol>
+              <li>Join prescribing to list size on practice code and month, giving items per 1,000 patients.</li>
+              <li>Compare each practice to the national average <strong>for the same month</strong>, because prescribing is strongly seasonal.</li>
+              <li>Flag a practice-month as high when its ratio is above 1.5.</li>
+              <li>Call a practice an outlier only when it is high in all 24 months. That filters out one-off spikes.</li>
+            </ol>
+            <figure class="figure figure--pad">
+              <img src="../assets/nhs-sutterton-vs-national.png" alt="Line chart of antibiotic items per 1,000 patients at Sutterton Surgery against the national average, September 2024 to August 2026. The practice sits well above the national line every month." loading="lazy" />
+              <figcaption>Fig. 1: One of the 40 outliers against the national average, Sep 2024 to Aug 2026. Both lines follow the same seasonal shape, but the practice stays far above.</figcaption>
+            </figure>
+          </section>
+          <section id="decisions" data-reveal>
+            <h2><span class="num">04</span>Design decisions</h2>
+            <p>Each of these changed the answer, which is why they're written down.</p>
+            <details class="decision">
+              <summary>Practice code, not ICB, as the anchor</summary>
+              <div><p>The 2026 restructure cut ICBs from 42 to 36 and redrew boundaries, so ICB codes aren't stable across the period.</p></div>
+            </details>
+            <details class="decision">
+              <summary>Excluded non-GP prescribers</summary>
+              <div><p>About a fifth of prescribing rows have no registered list: out-of-hours services, walk-in centres and community services (mostly Y-prefixed codes). A per-patient rate means nothing for them.</p></div>
+            </details>
+            <details class="decision">
+              <summary>Excluded care-home (Y-coded) services from the comparison</summary>
+              <div><p>Care-home practices reached 8&times; the national rate because their patients are frail and elderly. Left in, they'd swamp the results.</p></div>
+            </details>
+            <details class="decision">
+              <summary>Excluded practices under 1,000 patients</summary>
+              <div><p>With very small lists, a handful of prescriptions produces extreme rates.</p></div>
+            </details>
+            <details class="decision">
+              <summary>Grouped by practice code, not name</summary>
+              <div><p>Names aren't unique, and 3 practices were renamed during the period. Grouping by name gave 36 or 37 outliers instead of 40.</p></div>
+            </details>
+          </section>
+          <section id="data-quality" data-reveal>
+            <h2><span class="num">05</span>Data quality issues found</h2>
+            <p>The source isn't consistent from month to month. Each of these surfaced during the backfill:</p>
+            <ul>
+              <li>The BNF code column was renamed from <code>BNF_CODE</code> to <code>BNF_PRESENTATION_CODE</code>.</li>
+              <li><code>YEAR_MONTH</code> changed from an integer (<code>202409</code>) to a string (<code>'2026-08'</code>), so the loader stamps its own month column.</li>
+              <li>Numeric columns were stored as text in March 2025 and needed explicit casts.</li>
+              <li>List-size files were published as zip in some months and csv in others.</li>
+            </ul>
+          </section>
+          <section id="results" data-reveal>
+            <h2><span class="num">06</span>Results</h2>
+            <div class="stats">
+              <div class="stat"><strong>40</strong><span>GP practices above 1.5&times; the national rate</span></div>
+              <div class="stat"><strong>24/24</strong><span>months above the threshold, for every one of them</span></div>
+              <div class="stat"><strong>1.5&times;</strong><span>threshold, applied month by month</span></div>
+            </div>
+            <p>The persistent outliers also cluster geographically, which matters for how you read them (see below).</p>
+          </section>
+          <section id="limitations" data-reveal>
+            <h2><span class="num">07</span>Limitations</h2>
+            <ul>
+              <li><strong>No adjustment for population.</strong> Age, deprivation and rurality all affect infection rates. The geographic clustering suggests some outliers reflect their patients rather than their prescribing behaviour.</li>
+              <li>Items are a count of prescriptions, not doses or courses.</li>
+              <li>The 1.5&times; threshold is a judgement call, not a clinical standard.</li>
+            </ul>
+          </section>
+
+        </article>
+      </div>
+    </div>
+
+    <a href="healthcare-elt.html" class="next-project">
+      <span class="label">Next project</span>
+      <strong>Healthcare ELT Pipeline <span aria-hidden="true">&rarr;</span></strong>
+    </a>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>&copy; <span id="year"></span> Junayd Elahi</span>
+      <a href="../index.html#contact" class="muted">Get in touch &rarr;</a>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

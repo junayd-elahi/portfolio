@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Junayd Elahi — Data Engineering &amp; Machine Learning</title>
+  <meta name="description" content="Junayd Elahi builds data pipelines and machine learning projects, with a particular interest in healthcare. London." />
+  <meta property="og:title" content="Junayd Elahi — Data Engineering &amp; Machine Learning" />
+  <meta property="og:description" content="Data pipelines and machine learning, with a particular interest in healthcare." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2307090c'/><path d='M4 17h6l2-5 3 11 3-15 2 9h8' fill='none' stroke='%235eead4' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <a href="#top" class="nav__logo" aria-label="Junayd Elahi, home">
+      <span class="nav__mark">JE</span>
+    </a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark theme">
+        <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="btn btn--small btn--ghost hide-sm" href="assets/cv.pdf" target="_blank" rel="noopener">CV</a>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero__grid" aria-hidden="true"></div>
+      <svg class="ecg" aria-hidden="true" preserveAspectRatio="none">
+        <path class="ecg__base" />
+        <path class="ecg__pulse" />
+      </svg>
+
+      <div class="container hero__inner">
+        <p class="eyebrow hero__eyebrow">
+          <span class="pulse-dot"></span>
+          Open to Data Engineering, Data Science &amp; ML roles · London
+        </p>
+
+        <h1 class="hero__title" data-split>Junayd Elahi</h1>
+
+        <p class="hero__lede" data-reveal style="--d:.45s">
+          I build data pipelines and machine learning projects, mostly with healthcare data.
+          I care about clean data, work other people can rerun, and being honest about what a model can and can't do.
+        </p>
+
+        <div class="hero__cta" data-reveal style="--d:.6s">
+          <a href="#work" class="btn btn--primary magnetic">
+            See my work
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </a>
+          <a href="assets/cv.pdf" target="_blank" rel="noopener" class="btn btn--ghost magnetic">Download CV</a>
+          <a href="https://github.com/junayd-elahi" target="_blank" rel="noopener" class="btn btn--icon magnetic" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" class="fill"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/junayd-elahi" target="_blank" rel="noopener" class="btn btn--icon magnetic" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" class="fill"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <a href="#glance" class="scroll-cue" aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- ============ AT A GLANCE ============ -->
+    <section class="glance" id="glance" aria-label="At a glance">
+      <div class="container">
+        <div class="glance__grid">
+          <div class="glance__item" data-reveal>
+            <span class="label">Now</span>
+            <strong>Data Analyst</strong>
+            <span class="muted">Coldwell Banker · I oversee the back end</span>
+          </div>
+          <div class="glance__item" data-reveal style="--d:.08s">
+            <span class="label">Degree</span>
+            <strong>BSc Computer Science (AI)</strong>
+            <span class="muted">University of Greenwich · 2:1</span>
+          </div>
+          <div class="glance__item" data-reveal style="--d:.16s">
+            <span class="label">Focus</span>
+            <strong>Healthcare data &amp; ML</strong>
+            <span class="muted">NHS, clinical &amp; biomedical data</span>
+          </div>
+          <div class="glance__item" data-reveal style="--d:.24s">
+            <span class="label">Manual work automated</span>
+            <strong><span data-count="40" data-suffix="%">0%</span></strong>
+            <span class="muted">of the weekly workload at Coldwell Banker</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow" data-reveal>01 — Selected work</p>
+            <h2 class="section__title" data-reveal>Projects</h2>
+          </div>
+          <p class="section__intro muted" data-reveal>
+            Each card is the short version. Open one for the full write-up: the method, the decisions, and what didn't work.
+          </p>
+        </div>
+
+        <div class="filters" data-reveal>
+          <button class="chip is-active" data-filter="all">All</button>
+          <button class="chip" data-filter="healthcare">Healthcare</button>
+          <button class="chip" data-filter="data">Data engineering</button>
+          <button class="chip" data-filter="ml">Machine learning</button>
+          <button class="chip" data-filter="backend">Backend</button>
+        </div>
+
+        <div class="projects">
+          <!-- 1 — NHS (featured) -->
+          <article class="card card--feature" data-tags="healthcare data" data-reveal>
+            <a href="projects/nhs-antibiotic-prescribing.html" class="card__link" aria-label="NHS Antibiotic Prescribing Outlier Detection: read the write-up"></a>
+            <div class="card__media">
+              <div class="cover cover--lines">
+                <span class="cover__tag">NHSBSA · 24 months</span>
+                <div class="cover__stat"><strong>40</strong><span>GP practices above 1.5× the national rate, every month</span></div>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="card__meta"><span>2026</span><span>·</span><span>Personal project</span><span>·</span><span>Healthcare analytics</span></div>
+              <h3 class="card__title">NHS Antibiotic Prescribing Outlier Detection</h3>
+              <p class="card__summary">A Python and DuckDB pipeline over two years of public NHS prescribing data, finding GP practices that prescribe antibiotics far above the national rate. The rate is adjusted for seasonality, and the pipeline copes with the source changing format between releases.</p>
+              <p class="card__outcome"><span class="label">Outcome</span> 40 practices stayed above 1.5× the national rate in all 24 months, after excluding care homes, tiny lists and non-GP prescribers.</p>
+              <ul class="tags"><li>Python</li><li>DuckDB</li><li>SQL</li><li>Matplotlib</li></ul>
+              <div class="card__foot">
+                <span class="card__cta">Read the deep dive <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                <a class="card__ext" href="https://github.com/junayd-elahi/nhs-antibiotic-prescribing" target="_blank" rel="noopener">Code ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2 — Healthcare ELT -->
+          <article class="card" data-tags="healthcare data" data-reveal style="--d:.08s">
+            <a href="projects/healthcare-elt.html" class="card__link" aria-label="Healthcare ELT Pipeline: read the write-up"></a>
+            <div class="card__media">
+              <div class="cover cover--grid">
+                <span class="cover__tag">Snowflake · dbt</span>
+                <div class="cover__stat"><strong>39</strong><span>data-quality tests gate every build</span></div>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="card__meta"><span>2026</span><span>·</span><span>Data engineering</span></div>
+              <h3 class="card__title">Healthcare ELT Pipeline</h3>
+              <p class="card__summary">~160K rows of synthetic patient data loaded into Snowflake and modelled with dbt into a star schema. Orchestrated with Airflow in Docker, with CI on every pull request.</p>
+              <ul class="tags"><li>dbt</li><li>Snowflake</li><li>Airflow</li><li>Docker</li></ul>
+              <div class="card__foot">
+                <span class="card__cta">Read the deep dive <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                <a class="card__ext" href="https://github.com/junayd-elahi/Healthcare-ELT" target="_blank" rel="noopener">Code ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3 — Parkinson's -->
+          <article class="card" data-tags="healthcare ml" data-reveal style="--d:.16s">
+            <a href="projects/parkinsons-keystroke.html" class="card__link" aria-label="Keystroke Dynamics for Parkinson's: read the write-up"></a>
+            <div class="card__media">
+              <div class="cover cover--bars">
+                <span class="cover__tag">Final-year project</span>
+                <div class="cover__stat"><strong>131</strong><span>participants · 51 timing features</span></div>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="card__meta"><span>2026</span><span>·</span><span>Dissertation</span></div>
+              <h3 class="card__title">Keystroke Dynamics to Detect Parkinson's</h3>
+              <p class="card__summary">Tests whether typing rhythm can separate Parkinson's patients from controls once data leakage is removed with subject-wise cross-validation.</p>
+              <ul class="tags"><li>XGBoost</li><li>Random Forest</li><li>scikit-learn</li></ul>
+              <div class="card__foot">
+                <span class="card__cta">Read the deep dive <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                <a class="card__ext" href="https://github.com/junayd-elahi/parkinsons-typing-biomarker" target="_blank" rel="noopener">Code ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4 — Pneumonia -->
+          <article class="card" data-tags="healthcare ml" data-reveal>
+            <a href="projects/pneumonia-cnn.html" class="card__link" aria-label="Pneumonia Detection from Chest X-Rays: read the write-up"></a>
+            <div class="card__media">
+              <div class="cover cover--rings">
+                <span class="cover__tag">PyTorch · CNN</span>
+                <div class="cover__stat"><strong>0.98</strong><span>recall on the test set</span></div>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="card__meta"><span>2026</span><span>·</span><span>Deep learning</span></div>
+              <h3 class="card__title">Pneumonia Detection from Chest X-Rays</h3>
+              <p class="card__summary">A PyTorch CNN that classifies chest X-rays as normal or pneumonia, benchmarked against logistic regression, with its false positives and overfitting analysed.</p>
+              <ul class="tags"><li>PyTorch</li><li>CNN</li><li>Computer vision</li></ul>
+              <div class="card__foot">
+                <span class="card__cta">Read the deep dive <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                <a class="card__ext" href="https://github.com/junayd-elahi/pneumonia-detection-cnn" target="_blank" rel="noopener">Code ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5 — Teton -->
+          <article class="card" data-tags="backend healthcare" data-reveal style="--d:.08s">
+            <a href="projects/teton-streaming.html" class="card__link" aria-label="Sensor Streaming Backend: read the write-up"></a>
+            <div class="card__media">
+              <div class="cover cover--stream">
+                <span class="cover__tag">Go · PostgreSQL</span>
+                <div class="cover__stat"><strong>50k/s</strong><span>event bursts acknowledged in load tests</span></div>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="card__meta"><span>2026</span><span>·</span><span>Backend challenge</span></div>
+              <h3 class="card__title">Sensor Streaming Backend</h3>
+              <p class="card__summary">A Go service for room sensors. It ingests events, tracks device health and occupancy, and publishes fall alarms that consumers can resume after a disconnect.</p>
+              <ul class="tags"><li>Go</li><li>PostgreSQL</li><li>Docker</li></ul>
+              <div class="card__foot">
+                <span class="card__cta">Read the deep dive <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                <a class="card__ext" href="https://github.com/junayd-elahi/teton-streaming" target="_blank" rel="noopener">Code ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6 — Cell coverage -->
+          <article class="card" data-tags="healthcare" data-reveal style="--d:.16s">
+            <a href="projects/cell-coverage.html" class="card__link" aria-label="Cell Coverage Estimation: read the write-up"></a>
+            <div class="card__media">
+              <div class="cover cover--dots">
+                <span class="cover__tag">Microscopy · BBBC008</span>
+                <div class="cover__stat"><strong>19.7<small>pp</small></strong><span>mean error vs expert masks</span></div>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="card__meta"><span>2026</span><span>·</span><span>Image analysis</span></div>
+              <h3 class="card__title">Cell Coverage Estimation</h3>
+              <p class="card__summary">Estimates how much of a fluorescence microscopy image is covered by cells using Otsu thresholding, then checks the answer against manually corrected reference masks.</p>
+              <ul class="tags"><li>Python</li><li>Otsu thresholding</li><li>Evaluation</li></ul>
+              <div class="card__foot">
+                <span class="card__cta">Read the deep dive <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                <a class="card__ext" href="https://github.com/junayd-elahi/Cell-Coverage" target="_blank" rel="noopener">Code ↗</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section section--alt" id="about">
+      <div class="container about">
+        <aside class="profile" data-reveal>
+          <!-- To use a photo: replace the .profile__mono div with <img class="profile__photo" src="assets/me.jpg" alt="Junayd Elahi"> -->
+          <div class="profile__mono" aria-hidden="true"><span>JE</span></div>
+          <div class="profile__body">
+            <strong>Junayd Elahi</strong>
+            <span class="muted">Data Analyst · London</span>
+            <span class="profile__status"><span class="pulse-dot"></span> Open to new roles</span>
+          </div>
+          <ul class="profile__links">
+            <li><a href="https://github.com/junayd-elahi" target="_blank" rel="noopener">GitHub <span>↗</span></a></li>
+            <li><a href="https://www.linkedin.com/in/junayd-elahi" target="_blank" rel="noopener">LinkedIn <span>↗</span></a></li>
+            <li><a href="assets/cv.pdf" target="_blank" rel="noopener">CV (PDF) <span>↗</span></a></li>
+          </ul>
+        </aside>
+        <div class="about__text">
+          <p class="eyebrow" data-reveal>02 — About</p>
+          <h2 class="section__title" data-reveal>Hi, I'm Junayd.</h2>
+          <div class="prose" data-reveal>
+            <p>I'm a data analyst in London. I joined Coldwell Banker in 2023 doing data entry, got tired of typing the same things in every week, and wrote a script to do it for me. I showed it to my manager, and now I oversee the whole back end there: the automation, the data pipelines and the tools the team relies on every day.</p>
+            <p>I finished my Computer Science (AI) degree at Greenwich in 2026. Most of my projects use healthcare data, because that's the area I'm most interested in. Some of my favourite results are the ones that didn't go to plan, like a model that stopped beating the baseline once I fixed a data leak.</p>
+          </div>
+
+          <div class="offwork" data-reveal>
+            <h3 class="subhead subhead--flush">Outside work</h3>
+            <p class="offwork__intro">Most weeks I'm at the gym, on a bouldering wall or on a padel court, and I'm always up for a game of football or chess. At the weekend I'm usually working on my car, out driving or on my racing sim. I also like playing around with Arduinos and small electronics projects.</p>
+            <ul class="hobbies">
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg>
+                Gym
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20 9.5 8l3.5 6 2-3 6 9z"/><circle cx="16.5" cy="5.5" r="1.5"/></svg>
+                Bouldering &amp; climbing
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="10" cy="9" rx="6" ry="6.5"/><path d="m14 14 6 6"/><circle cx="19" cy="5" r="1.6"/></svg>
+                Padel
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m12 7.5 4 2.9-1.5 4.7h-5L8 10.4z"/><path d="M12 3v4.5M21 10.4l-5 0M14.5 15.1 17.5 20M9.5 15.1 6.5 20M8 10.4H3"/></svg>
+                Football
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21h10M8 18h8M9.5 18 9 12h6l-.5 6M8.5 12h7"/><path d="M10 12 8 9.5c0-3 2-5.5 5-5.5l1.5 1.5L16 9l-2 3"/></svg>
+                Chess
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3.5 17.5a1.8 1.8 0 0 0 2.5 2.5l5.8-5.8a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.3-.6-.6-2.3z"/></svg>
+                Working on my car
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M3.5 10.5 10 12M20.5 10.5 14 12M12 14v7"/></svg>
+                Sim racing &amp; driving
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>
+                Arduino &amp; electronics
+              </li>
+            </ul>
+          </div>
+          <dl class="facts" data-reveal>
+            <div><dt>Education</dt><dd>BSc Computer Science (AI), University of Greenwich, 2026 · 2:1 (69%)</dd></div>
+            <div><dt>Top modules</dt><dd>Statistics with R 86% · Advanced Mathematics 76% · Artificial Intelligence 74% · Natural Computing 73% · Machine Learning 70%</dd></div>
+            <div><dt>Languages</dt><dd>Python, SQL, Go, R</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE ============ -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow" data-reveal>03 — Experience</p>
+            <h2 class="section__title" data-reveal>Where I've worked &amp; studied</h2>
+          </div>
+        </div>
+
+        <ol class="timeline">
+          <span class="timeline__fill" aria-hidden="true"></span>
+          <li class="timeline__item" data-reveal>
+            <span class="timeline__date">Oct 2023 — Present</span>
+            <div>
+              <h3>Data Analyst <span class="muted">· Coldwell Banker, Southbank</span></h3>
+              <p class="timeline__lead">Started in data entry, automated it, and now oversee the office's entire back end: automation, data pipelines and data forensics.</p>
+              <ul>
+                <li>Built Python automation tools that replaced recurring manual data-entry workflows, cutting weekly manual workload by <strong>40%</strong>.</li>
+                <li>Scraped, cleaned and analysed sold-property data across <strong>50 postcodes</strong> (around 2,500 listings) to produce local price trends for marketing and valuations.</li>
+                <li>Built an OCR-based matching pipeline that compares live listings against <strong>270+ units</strong> using floorplan extraction and statistical scoring. It picks the correct unit about <strong>94%</strong> of the time.</li>
+                <li>Automated a daily ETL pipeline on GitHub Actions. When runs started firing up to 10 hours late, I rebuilt the scheduling on a Cloudflare Worker, and it now starts on time every day.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="timeline__item" data-reveal>
+            <span class="timeline__date">Oct 2025</span>
+            <div>
+              <h3>Quality Assurance Placement <span class="muted">· Gnomen Property Management</span></h3>
+              <ul>
+                <li>Ran exploratory and boundary testing on pre-release UI, finding validation failures, race conditions and edge-case defects.</li>
+                <li>Reported defects with reproduction steps and severity, then presented findings and recommendations to the owner in non-technical terms.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="timeline__item" data-reveal>
+            <span class="timeline__date">Sep 2023 — Jul 2026</span>
+            <div>
+              <h3>BSc Computer Science (AI) <span class="muted">· University of Greenwich</span></h3>
+              <p>Upper Second-Class Honours (2:1), 69%. Final-year project on <a class="inline-link" href="projects/parkinsons-keystroke.html">keystroke dynamics for Parkinson's detection</a>.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ REFERENCES ============ -->
+    <section class="section section--alt section--tight" id="references">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow" data-reveal>04 — References</p>
+            <h2 class="section__title" data-reveal>What managers have said</h2>
+          </div>
+          <p class="section__intro muted" data-reveal>Quoted from written references. Full letters are available on request.</p>
+        </div>
+        <div class="quotes">
+          <figure class="quote" data-reveal>
+            <blockquote>“It was entirely his own initiative that created the role he went on to hold. … He took these from idea to working tool largely independently.”</blockquote>
+            <figcaption><strong>Bernadette Teuma</strong><span class="muted">Director, Coldwell Banker Southbank</span></figcaption>
+          </figure>
+          <figure class="quote" data-reveal style="--d:.1s">
+            <blockquote>“He picked things up at pace and became productive in a short space of time. … often spotting things from the user-facing side that the development team did not have the same visibility of.”</blockquote>
+            <figcaption><strong>Hassan N Hassan</strong><span class="muted">Managing Director, Gnomen</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow" data-reveal>05 — Toolkit</p>
+            <h2 class="section__title" data-reveal>What I work with</h2>
+          </div>
+        </div>
+        <div class="skills">
+          <div class="skills__group" data-reveal>
+            <h3><span class="skills__num">A</span>Data engineering</h3>
+            <ul><li>dbt · Snowflake · DuckDB</li><li>Airflow · Docker · Kubernetes</li><li>GitHub Actions · CI/CD · Git</li><li>AWS S3 · CloudFront · Cloudflare Workers</li></ul>
+          </div>
+          <div class="skills__group" data-reveal style="--d:.08s">
+            <h3><span class="skills__num">B</span>Languages &amp; analysis</h3>
+            <ul><li>Python · SQL · Go · R</li><li>Pandas · NumPy · statsmodels</li><li>Matplotlib · Power BI · Excel</li><li>PostgreSQL</li></ul>
+          </div>
+          <div class="skills__group" data-reveal style="--d:.16s">
+            <h3><span class="skills__num">C</span>Machine learning</h3>
+            <ul><li>scikit-learn · XGBoost · Random Forest</li><li>PyTorch · TensorFlow</li><li>Nested, subject-wise cross-validation</li><li>Computer vision (CNNs, segmentation)</li></ul>
+          </div>
+        </div>
+
+        <h3 class="subhead" data-reveal>Certifications</h3>
+        <ul class="certs" data-reveal>
+          <li><strong>Databricks Fundamentals Accreditation</strong><span>Databricks Academy · Sep 2026</span></li>
+          <li><strong>Software Engineer Intern</strong><span>HackerRank role certification · Sep 2026</span></li>
+          <li><strong>Learn Kubernetes · Learn Go</strong><span>Boot.dev · Jul 2026</span></li>
+          <li><strong>Learn Power BI · Learn Docker</strong><span>Boot.dev · Jul 2026</span></li>
+          <li><strong>Learn AWS · Learn SQL</strong><span>Boot.dev · Jun–Jul 2026</span></li>
+          <li><strong>Python · Linux · Git</strong><span>Boot.dev · Sep 2025</span></li>
+        </ul>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>Python</span><span>dbt</span><span>Snowflake</span><span>Airflow</span><span>PyTorch</span><span>DuckDB</span><span>Go</span><span>XGBoost</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <p class="eyebrow" data-reveal>06 — Contact</p>
+        <h2 class="contact__title" data-reveal>Let's talk<span class="accent">.</span></h2>
+        <p class="muted contact__sub" data-reveal>I'm looking for Data Engineering, Data Science and Machine Learning roles in London. Healthcare is a bonus.</p>
+
+        <div class="contact__row" data-reveal>
+          <button class="email-btn magnetic" id="copyEmail" data-email="Junaydelahi@outlook.com">
+            <span class="email-btn__text">Junaydelahi@outlook.com</span>
+            <span class="email-btn__hint">Click to copy</span>
+          </button>
+        </div>
+
+        <ul class="socials" data-reveal>
+          <li><a href="https://www.linkedin.com/in/junayd-elahi" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+          <li><a href="https://github.com/junayd-elahi" target="_blank" rel="noopener">GitHub ↗</a></li>
+          <li><a href="assets/cv.pdf" target="_blank" rel="noopener">CV (PDF) ↗</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© <span id="year"></span> Junayd Elahi</span>
+      <span class="muted">Hand-built HTML, CSS &amp; JS</span>
+      <a href="#top" class="muted">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>
