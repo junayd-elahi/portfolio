@@ -1,0 +1,77 @@
+/* Prototype layer on top of the live site: a colour per project, with its own cover animation. */
+
+/* project colours: each sets the cover colour and the colours used on top of it */
+.c-green  { --c:#1E4B38; --f-fg:#FFFFFF; --f-muted:#9CC7B2; --f-acc:#F4D35E; --f-line:#3B6B56; --on:#FFFFFF; }
+.c-cobalt { --c:#2338B5; --f-fg:#FFFFFF; --f-muted:#AEB8F2; --f-acc:#FFD166; --f-line:#4A5CCB; --on:#FFFFFF; }
+.c-ochre  { --c:#E6AE2E; --f-fg:#151515; --f-muted:#6E5413; --f-acc:#FFFFFF; --f-line:#C8951E; --on:#151515; }
+.c-slate  { --c:#263042; --f-fg:#FFFFFF; --f-muted:#9AA6BC; --f-acc:#86C8FF; --f-line:#3A465C; --on:#FFFFFF; }
+.c-plum   { --c:#4F2346; --f-fg:#FFFFFF; --f-muted:#C9A6BF; --f-acc:#FFC2E2; --f-line:#6E3D63; --on:#FFFFFF; }
+.c-violet { --c:#3B2A6B; --f-fg:#FFFFFF; --f-muted:#B7A9E0; --f-acc:#FFD166; --f-line:#56458A; --on:#FFFFFF; }
+
+.cover[class*="c-"] { background: var(--c); color: var(--on); --sans: var(--font-sans); --mono: var(--font-mono); }
+.cover[class*="c-"] .cover__tag { color: var(--on); border-color: color-mix(in srgb, var(--on) 32%, transparent); background: color-mix(in srgb, var(--c) 70%, transparent); z-index: 1; }
+.cover[class*="c-"] .cover__stat { z-index: 1; }
+.cover[class*="c-"] .cover__stat strong { background: none; color: var(--on); -webkit-text-fill-color: currentColor; }
+.cover[class*="c-"] .cover__stat span { color: var(--on); opacity: .86; }
+
+/* light that follows the cursor over the cover (same --mx/--my the card glow uses) */
+.cover[class*="c-"]::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s; background: radial-gradient(360px circle at var(--mx) var(--my), rgba(255,255,255,.18), transparent 60%); }
+.card:hover .cover[class*="c-"]::after { opacity: 1; }
+
+/* animation layer */
+.pat { position: absolute; inset: 0; pointer-events: none; }
+
+/* NHS: the chart draws itself in when the card arrives */
+.cover--chart { justify-content: flex-start; gap: var(--s-4); }
+.cover--chart::before { display: none; }
+.cover__top { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: var(--s-3) var(--s-5); flex-wrap: wrap; }
+.cover__mini { font-size: var(--fs-sm); opacity: .92; max-width: 34ch; text-align: right; }
+.cover__mini strong { font-size: 1.9em; font-weight: 600; letter-spacing: -.02em; margin-right: 4px; vertical-align: -2px; }
+.cover--chart svg { position: relative; z-index: 1; width: 100%; height: auto; margin-block: auto; }
+.cover--chart .cover__stat { margin-top: 0; }
+.cover--chart .ft { font-family: var(--font-mono); fill: var(--f-muted); }
+html.js .cover--chart .draw { stroke-dasharray: 1; stroke-dashoffset: 1; }
+html.js .card.is-in .cover--chart .draw { transition: stroke-dashoffset 2.2s var(--ease) .4s; stroke-dashoffset: 0; }
+html.js .cover--chart .fadein, html.js .cover--chart .late { opacity: 0; transition: opacity .9s; }
+html.js .card.is-in .cover--chart .fadein { opacity: 1; transition-delay: .2s; }
+html.js .card.is-in .cover--chart .late { opacity: 1; transition-delay: 2s; }
+
+/* ELT: the grid drifts */
+.c-cobalt.cover--grid::before { opacity: .7; background-image: linear-gradient(var(--f-line) 1px, transparent 1px), linear-gradient(90deg, var(--f-line) 1px, transparent 1px); background-size: 28px 28px; animation: gridDrift 14s linear infinite; }
+@keyframes gridDrift { to { background-position: 28px 28px; } }
+
+/* Keystroke: bars rise and fall like typing rhythm */
+.c-ochre.cover--bars::before { display: none; }
+.pat--bars { left: 38%; display: flex; align-items: flex-end; justify-content: flex-end; gap: 5px; padding-right: var(--pad); -webkit-mask-image: linear-gradient(90deg, transparent, #000 45%); mask-image: linear-gradient(90deg, transparent, #000 45%); }
+.pat--bars i { flex: none; width: 5px; height: var(--h); background: var(--f-fg); opacity: .2; border-radius: 2px 2px 0 0; animation: typing 1.4s ease-in-out infinite alternate; animation-delay: var(--d); }
+@keyframes typing { to { height: var(--h2); } }
+
+/* Pneumonia: scan rings pulse out */
+.c-slate.cover--rings::before { opacity: .5; background-image: repeating-radial-gradient(circle at 85% 20%, transparent 0 18px, var(--f-line) 18px 19px); }
+.pat--rings i { position: absolute; right: -100px; top: -110px; width: 300px; aspect-ratio: 1; border-radius: 50%; border: 1.5px solid var(--f-acc); opacity: 0; animation: ring 4.5s cubic-bezier(.2,.6,.3,1) infinite; }
+.pat--rings i:nth-child(2) { animation-delay: 1.5s; }
+.pat--rings i:nth-child(3) { animation-delay: 3s; }
+@keyframes ring { 0% { transform: scale(.15); opacity: .8; } 100% { transform: scale(1.5); opacity: 0; } }
+
+/* Sensor: the event stream, in the project's colour */
+.c-plum.cover--stream::before { opacity: .6; background-image: repeating-linear-gradient(90deg, var(--f-acc) 0 14px, transparent 14px 44px); animation-duration: 1.4s;
+  -webkit-mask-image: repeating-linear-gradient(0deg, #000 0 2px, transparent 2px 16px), linear-gradient(90deg, transparent 15%, #000 75%); -webkit-mask-composite: source-in;
+  mask-image: repeating-linear-gradient(0deg, #000 0 2px, transparent 2px 16px), linear-gradient(90deg, transparent 15%, #000 75%); mask-composite: intersect; }
+
+/* Cell coverage: the real microscope field glows through */
+.c-violet.cover--dots::before { opacity: .35; background-image: radial-gradient(circle, var(--f-muted) 1.5px, transparent 2px); }
+.pat--micro { left: auto; right: 0; width: min(62%, 300px); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 45%); mask-image: linear-gradient(90deg, transparent, #000 45%); }
+.pat--micro img { position: absolute; max-width: none; height: 150%; width: auto; top: -26%; left: -6%; mix-blend-mode: screen; animation: zoom 18s ease-in-out infinite alternate; }
+@keyframes zoom { to { transform: scale(1.12) translate(-3%, 2%); } }
+
+/* About without the profile card */
+.about--solo { grid-template-columns: minmax(0, 1fr); max-width: 860px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pat *, .pat, .cover::before { animation: none !important; }
+  html.js .cover--chart .draw { stroke-dashoffset: 0; }
+  html.js .cover--chart .fadein, html.js .cover--chart .late { opacity: 1; }
+}
+
+/* the NHS cover holds a chart, so it sizes to its content on every screen */
+.card.card--feature .card__media { aspect-ratio: auto; }

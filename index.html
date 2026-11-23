@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/colours.css" />
   <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
 <body>
@@ -119,9 +120,6 @@
             <p class="eyebrow" data-reveal>01 — Selected work</p>
             <h2 class="section__title" data-reveal>Projects</h2>
           </div>
-          <p class="section__intro muted" data-reveal>
-            Each card is the short version. Open one for the full write-up: the method, the decisions, and what didn't work.
-          </p>
         </div>
 
         <div class="filters" data-reveal>
@@ -137,9 +135,21 @@
           <article class="card card--feature" data-tags="healthcare data" data-reveal>
             <a href="projects/nhs-antibiotic-prescribing.html" class="card__link" aria-label="NHS Antibiotic Prescribing Outlier Detection: read the write-up"></a>
             <div class="card__media">
-              <div class="cover cover--lines">
+              <div class="cover cover--chart c-green">
                 <span class="cover__tag">NHSBSA · 24 months</span>
-                <div class="cover__stat"><strong>40</strong><span>GP practices above 1.5× the national rate, every month</span></div>
+                <svg viewBox="0 0 1000 345" role="img" aria-labelledby="nhsT">
+            <title id="nhsT">Sutterton Surgery stays above 1.5 times the national rate every month from September 2024 to August 2026</title>
+            <g style="stroke:var(--f-line)" stroke-width="1"><line x1="56" y1="316" x2="856" y2="316"/><line x1="56" y1="230.3" x2="856" y2="230.3" stroke-dasharray="2 6"/><line x1="56" y1="144.6" x2="856" y2="144.6" stroke-dasharray="2 6"/><line x1="56" y1="58.9" x2="856" y2="58.9" stroke-dasharray="2 6"/></g>
+            <g font-size="17" text-anchor="end" class="ft"><text x="44" y="322">0</text><text x="44" y="236">40</text><text x="44" y="151">80</text><text x="44" y="65">120</text></g>
+            <g font-size="17" text-anchor="middle" class="ft"><text x="56" y="343">Sep 24</text><text x="334.3" y="343">May 25</text><text x="612.5" y="343">Jan 26</text><text x="856" y="343">Aug 26</text></g>
+            <path class="fadein" d="M56.0,205.1 L90.8,184.2 L125.6,184.2 L160.3,169.8 L195.1,174.6 L229.9,195.5 L264.7,194.5 L299.5,203.5 L334.3,206.7 L369.0,209.9 L403.8,206.7 L438.6,218.0 L473.4,205.1 L508.2,189.0 L543.0,197.1 L577.7,174.6 L612.5,184.2 L647.3,198.7 L682.1,191.3 L716.9,203.5 L751.7,209.9 L786.4,205.1 L821.2,205.1 L856.0,219.6" fill="none" style="stroke:var(--f-muted)" stroke-width="1.6" stroke-dasharray="6 5"/>
+            <path class="fadein" d="M56.0,242.1 L90.8,228.1 L125.6,228.1 L160.3,218.5 L195.1,221.7 L229.9,235.6 L264.7,235.0 L299.5,241.0 L334.3,243.1 L369.0,245.3 L403.8,243.1 L438.6,250.6 L473.4,242.1 L508.2,231.4 L543.0,236.7 L577.7,221.7 L612.5,228.1 L647.3,237.8 L682.1,232.9 L716.9,241.0 L751.7,245.3 L786.4,242.1 L821.2,242.1 L856.0,251.7" fill="none" style="stroke:var(--f-fg)" stroke-width="2.4" opacity=".75"/>
+            <path class="draw" pathLength="1" d="M56.0,151.0 L90.8,84.6 L125.6,103.9 L160.3,46.0 L195.1,58.9 L229.9,116.7 L264.7,113.5 L299.5,91.0 L334.3,161.7 L369.0,144.6 L403.8,136.0 L438.6,145.6 L473.4,123.1 L508.2,107.1 L543.0,125.3 L577.7,67.4 L612.5,80.3 L647.3,99.6 L682.1,79.2 L716.9,125.3 L751.7,118.9 L786.4,106.0 L821.2,131.7 L856.0,168.1" fill="none" style="stroke:var(--f-acc)" stroke-width="4.5" stroke-linejoin="round"/>
+            <g class="late"><circle cx="160.3" cy="46" r="6" style="fill:var(--f-acc)"/>
+            <text x="180" y="30" font-size="19" style="fill:var(--f-fg);font-family:var(--sans);font-weight:600">Dec 2024: 2.8× the national rate</text></g>
+            <g class="late" font-size="18" style="font-family:var(--sans);font-weight:700"><text x="870" y="174" style="fill:var(--f-acc)">Sutterton</text><text x="870" y="225" style="fill:var(--f-muted);font-weight:500">1.5× national</text><text x="870" y="258" style="fill:var(--f-fg);font-weight:500">National</text></g>
+          </svg>
+                <div class="cover__stat"><strong data-count="40">40</strong><span>GP practices above 1.5× the national rate, every month</span></div>
               </div>
             </div>
             <div class="card__body">
@@ -159,7 +169,7 @@
           <article class="card" data-tags="healthcare data" data-reveal style="--d:.08s">
             <a href="projects/healthcare-elt.html" class="card__link" aria-label="Healthcare ELT Pipeline: read the write-up"></a>
             <div class="card__media">
-              <div class="cover cover--grid">
+              <div class="cover cover--grid c-cobalt">
                 <span class="cover__tag">Snowflake · dbt</span>
                 <div class="cover__stat"><strong>39</strong><span>data-quality tests gate every build</span></div>
               </div>
@@ -180,7 +190,7 @@
           <article class="card" data-tags="healthcare ml" data-reveal style="--d:.16s">
             <a href="projects/parkinsons-keystroke.html" class="card__link" aria-label="Keystroke Dynamics for Parkinson's: read the write-up"></a>
             <div class="card__media">
-              <div class="cover cover--bars">
+              <div class="cover cover--bars c-ochre"><div class="pat pat--bars" aria-hidden="true"></div>
                 <span class="cover__tag">Final-year project</span>
                 <div class="cover__stat"><strong>131</strong><span>participants · 51 timing features</span></div>
               </div>
@@ -201,7 +211,7 @@
           <article class="card" data-tags="healthcare ml" data-reveal>
             <a href="projects/pneumonia-cnn.html" class="card__link" aria-label="Pneumonia Detection from Chest X-Rays: read the write-up"></a>
             <div class="card__media">
-              <div class="cover cover--rings">
+              <div class="cover cover--rings c-slate"><div class="pat pat--rings" aria-hidden="true"><i></i><i></i><i></i></div>
                 <span class="cover__tag">PyTorch · CNN</span>
                 <div class="cover__stat"><strong>0.98</strong><span>recall on the test set</span></div>
               </div>
@@ -222,7 +232,7 @@
           <article class="card" data-tags="backend healthcare" data-reveal style="--d:.08s">
             <a href="projects/teton-streaming.html" class="card__link" aria-label="Sensor Streaming Backend: read the write-up"></a>
             <div class="card__media">
-              <div class="cover cover--stream">
+              <div class="cover cover--stream c-plum">
                 <span class="cover__tag">Go · PostgreSQL</span>
                 <div class="cover__stat"><strong>50k/s</strong><span>event bursts acknowledged in load tests</span></div>
               </div>
@@ -243,7 +253,7 @@
           <article class="card" data-tags="healthcare" data-reveal style="--d:.16s">
             <a href="projects/cell-coverage.html" class="card__link" aria-label="Cell Coverage Estimation: read the write-up"></a>
             <div class="card__media">
-              <div class="cover cover--dots">
+              <div class="cover cover--dots c-violet"><div class="pat pat--micro" aria-hidden="true"><img src="assets/cell-worst-prediction.png" alt=""></div>
                 <span class="cover__tag">Microscopy · BBBC008</span>
                 <div class="cover__stat"><strong>19.7<small>pp</small></strong><span>mean error vs expert masks</span></div>
               </div>
@@ -265,21 +275,7 @@
 
     <!-- ============ ABOUT ============ -->
     <section class="section section--alt" id="about">
-      <div class="container about">
-        <aside class="profile" data-reveal>
-          <!-- To use a photo: replace the .profile__mono div with <img class="profile__photo" src="assets/me.jpg" alt="Junayd Elahi"> -->
-          <div class="profile__mono" aria-hidden="true"><span>JE</span></div>
-          <div class="profile__body">
-            <strong>Junayd Elahi</strong>
-            <span class="muted">Data Analyst · London</span>
-            <span class="profile__status"><span class="pulse-dot"></span> Open to new roles</span>
-          </div>
-          <ul class="profile__links">
-            <li><a href="https://github.com/junayd-elahi" target="_blank" rel="noopener">GitHub <span>↗</span></a></li>
-            <li><a href="https://www.linkedin.com/in/junayd-elahi" target="_blank" rel="noopener">LinkedIn <span>↗</span></a></li>
-            <li><a href="assets/cv.pdf" target="_blank" rel="noopener">CV (PDF) <span>↗</span></a></li>
-          </ul>
-        </aside>
+      <div class="container about about--solo">
         <div class="about__text">
           <p class="eyebrow" data-reveal>02 — About</p>
           <h2 class="section__title" data-reveal>Hi, I'm Junayd.</h2>
@@ -394,11 +390,11 @@
         <div class="quotes">
           <figure class="quote" data-reveal>
             <blockquote>“It was entirely his own initiative that created the role he went on to hold. … He took these from idea to working tool largely independently.”</blockquote>
-            <figcaption><strong>Bernadette Teuma</strong><span class="muted">Director, Coldwell Banker Southbank</span></figcaption>
+            <figcaption><strong>Director</strong><span class="muted">Coldwell Banker Southbank</span></figcaption>
           </figure>
           <figure class="quote" data-reveal style="--d:.1s">
             <blockquote>“He picked things up at pace and became productive in a short space of time. … often spotting things from the user-facing side that the development team did not have the same visibility of.”</blockquote>
-            <figcaption><strong>Hassan N Hassan</strong><span class="muted">Managing Director, Gnomen</span></figcaption>
+            <figcaption><strong>Managing Director</strong><span class="muted">Gnomen</span></figcaption>
           </figure>
         </div>
       </div>
@@ -438,11 +434,6 @@
           <li><strong>Python · Linux · Git</strong><span>Boot.dev · Sep 2025</span></li>
         </ul>
       </div>
-      <div class="marquee" aria-hidden="true">
-        <div class="marquee__track">
-          <span>Python</span><span>dbt</span><span>Snowflake</span><span>Airflow</span><span>PyTorch</span><span>DuckDB</span><span>Go</span><span>XGBoost</span>
-        </div>
-      </div>
     </section>
 
     <!-- ============ CONTACT ============ -->
@@ -478,6 +469,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="js/main.js"></script>
+  <script src="js/colours.js"></script>
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f90a17543a4844ba99978f94f0e0077e"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
