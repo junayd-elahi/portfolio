@@ -8,21 +8,32 @@
   <meta property="og:title" content="Junayd Elahi — Data Engineering &amp; Machine Learning" />
   <meta property="og:description" content="Data pipelines and machine learning, with a particular interest in healthcare." />
   <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://junaydelahi.dev/" />
+  <meta name="theme-color" content="#07090c" />
+  <meta property="og:url" content="https://junaydelahi.dev/" />
+  <meta property="og:site_name" content="Junayd Elahi" />
+  <meta property="og:image" content="https://junaydelahi.dev/assets/og/og-home.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Junayd Elahi — Data Engineering &amp; Machine Learning" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2307090c'/><path d='M4 17h6l2-5 3 11 3-15 2 9h8' fill='none' stroke='%235eead4' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" href="fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/colours.css" />
-  <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+  <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}
+  // Coming back from a project page: its colour band morphs back into the card's cover.
+  addEventListener('pagereveal',function(e){var n=window.navigation,from=n&&n.activation&&n.activation.from;if(!e.viewTransition||!from)return;var p=new URL(from.url).pathname,a=[].slice.call(document.querySelectorAll('.card__link')).filter(function(l){return new URL(l.href).pathname===p;})[0];if(!a)return;var card=a.closest('.card'),m=card.querySelector('.card__media');card.classList.add('is-in');m.style.viewTransitionName='project-cover';e.viewTransition.finished.finally(function(){m.style.viewTransitionName='';});});</script>
+  <script type="speculationrules">{"prerender":[{"where":{"href_matches":"/projects/*"},"eagerness":"moderate"}]}</script>
 </head>
 <body>
+  <a class="skip-link" href="#top">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <div class="cursor-glow" aria-hidden="true"></div>
 
   <!-- ============ NAV ============ -->
   <header class="nav">
-    <a href="#top" class="nav__logo" aria-label="Junayd Elahi, home">
+    <a href="#top" class="nav__logo" aria-label="JE: Junayd Elahi, home">
       <span class="nav__mark">JE</span>
     </a>
     <nav class="nav__links" id="navLinks">
@@ -61,12 +72,12 @@
 
         <h1 class="hero__title" data-split>Junayd Elahi</h1>
 
-        <p class="hero__lede" data-reveal style="--d:.45s">
+        <p class="hero__lede hero-rise" style="--d:.25s">
           I build data pipelines and machine learning projects, mostly with healthcare data.
           I care about clean data, work other people can rerun, and being honest about what a model can and can't do.
         </p>
 
-        <div class="hero__cta" data-reveal style="--d:.6s">
+        <div class="hero__cta hero-rise" style="--d:.35s">
           <a href="#work" class="btn btn--primary magnetic">
             See my work
             <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
@@ -122,12 +133,12 @@
           </div>
         </div>
 
-        <div class="filters" data-reveal>
-          <button class="chip is-active" data-filter="all">All</button>
-          <button class="chip" data-filter="healthcare">Healthcare</button>
-          <button class="chip" data-filter="data">Data engineering</button>
-          <button class="chip" data-filter="ml">Machine learning</button>
-          <button class="chip" data-filter="backend">Backend</button>
+        <div class="filters" role="group" aria-label="Filter projects" data-reveal>
+          <button class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+          <button class="chip" data-filter="healthcare" aria-pressed="false">Healthcare</button>
+          <button class="chip" data-filter="data" aria-pressed="false">Data engineering</button>
+          <button class="chip" data-filter="ml" aria-pressed="false">Machine learning</button>
+          <button class="chip" data-filter="backend" aria-pressed="false">Backend</button>
         </div>
 
         <div class="projects">
@@ -253,7 +264,7 @@
           <article class="card" data-tags="healthcare" data-reveal style="--d:.16s">
             <a href="projects/cell-coverage.html" class="card__link" aria-label="Cell Coverage Estimation: read the write-up"></a>
             <div class="card__media">
-              <div class="cover cover--dots c-violet"><div class="pat pat--micro" aria-hidden="true"><img src="assets/cell-worst-prediction.png" alt=""></div>
+              <div class="cover cover--dots c-violet"><div class="pat pat--micro" aria-hidden="true"><img src="assets/cell-worst-prediction.webp" alt="" width="1600" height="533" loading="lazy" decoding="async"></div>
                 <span class="cover__tag">Microscopy · BBBC008</span>
                 <div class="cover__stat"><strong>19.7<small>pp</small></strong><span>mean error vs expert masks</span></div>
               </div>
@@ -468,8 +479,8 @@
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="js/main.js"></script>
-  <script src="js/colours.js"></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/colours.js" defer></script>
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f90a17543a4844ba99978f94f0e0077e"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page not found | Junayd Elahi</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#07090c" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2307090c'/><path d='M4 17h6l2-5 3 11 3-15 2 9h8' fill='none' stroke='%235eead4' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <!-- Absolute paths: GitHub Pages serves this page at whatever URL was missing. -->
+  <link rel="preload" href="/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+  <style>
+    .nf { min-height: 100svh; display: grid; place-items: center; position: relative; overflow: hidden; text-align: center; }
+    .nf__inner { position: relative; z-index: 1; padding: 0 var(--gutter); }
+    .nf__code { font-family: var(--font-mono); color: var(--accent); letter-spacing: var(--tr-label); margin: 0 0 var(--s-4); }
+    .nf h1 { font-size: var(--fs-display-2); line-height: 1; letter-spacing: var(--tr-display); margin: 0 0 var(--s-5); }
+    .nf p { color: var(--muted); font-size: var(--fs-lg); max-width: 30em; margin: 0 auto var(--s-6); }
+    .nf .hero__cta { justify-content: center; }
+    .nf__line { position: absolute; left: 0; width: 100%; height: 160px; bottom: 8%; pointer-events: none; opacity: .5; }
+    .nf__line path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .nf__beat { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; animation: flat 2.4s var(--ease) .2s forwards; filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), .8)); }
+    @keyframes flat { to { stroke-dashoffset: 0; } }
+    @media (prefers-reduced-motion: reduce) { .nf__beat { animation: none; stroke-dashoffset: 0; } }
+  </style>
+</head>
+<body>
+  <main class="nf" id="main">
+    <!-- One heartbeat, then flat. -->
+    <svg class="nf__line" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true">
+      <path class="nf__beat" pathLength="1" d="M0 100 L260 100 Q290 86 320 100 L350 100 L362 112 L384 18 L404 128 L420 100 L470 100 Q510 76 550 100 L1200 100" />
+    </svg>
+    <div class="nf__inner">
+      <p class="nf__code">404</p>
+      <h1>This link flatlined.</h1>
+      <p>The page you're after doesn't exist or has moved. My work is still alive and well.</p>
+      <div class="hero__cta">
+        <a href="/#work" class="btn btn--primary">See my work</a>
+        <a href="/" class="btn btn--ghost">Home</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -13,9 +13,16 @@
   $$('#year').forEach(el => (el.textContent = new Date().getFullYear()));
 
   /* ---------- Theme toggle (remembered per visitor) ---------- */
+  // Keep the phone's browser bar the same colour as the page.
+  const syncThemeColor = () => {
+    const meta = $('meta[name="theme-color"]');
+    if (meta) meta.content = root.dataset.theme === 'light' ? '#f5f5f0' : '#07090c';
+  };
+  syncThemeColor();
   $('#themeToggle')?.addEventListener('click', () => {
     const next = root.dataset.theme === 'light' ? 'dark' : 'light';
     root.dataset.theme = next;
+    syncThemeColor();
     try { localStorage.setItem('theme', next); } catch (e) {}
   });
 
@@ -49,17 +56,19 @@
   /* ---------- Cursor glow ---------- */
   const glow = $('.cursor-glow');
   if (glow && finePointer && !reduceMotion) {
-    let gx = innerWidth / 2, gy = innerHeight / 2, tx = gx, ty = gy;
-    addEventListener('pointermove', e => {
-      tx = e.clientX; ty = e.clientY;
-      document.body.classList.add('has-pointer');
-    }, { passive: true });
+    let gx = innerWidth / 2, gy = innerHeight / 2, tx = gx, ty = gy, running = false;
+    // Only runs while the glow is catching up with the pointer, then stops.
     const loop = () => {
       gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12;
       glow.style.transform = `translate(${gx - 260}px, ${gy - 260}px)`;
-      requestAnimationFrame(loop);
+      if (Math.abs(tx - gx) + Math.abs(ty - gy) > 0.5) requestAnimationFrame(loop);
+      else running = false;
     };
-    loop();
+    addEventListener('pointermove', e => {
+      tx = e.clientX; ty = e.clientY;
+      document.body.classList.add('has-pointer');
+      if (!running) { running = true; requestAnimationFrame(loop); }
+    }, { passive: true });
   }
 
   /* ---------- Hero title: split into animated words ---------- */
@@ -145,17 +154,26 @@
     let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 150); });
 
     if (!reduceMotion) {
-      new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(ecg);
       const speed = 0.38; // px per ms
+      let raf = 0;
       const loop = now => {
         const dt = last ? Math.min(now - last, 50) : 16; last = now;
-        if (visible && len) {
+        if (len) {
           offset = (offset + speed * dt) % (len + seg);
           pulse.style.strokeDashoffset = seg - offset;
         }
-        requestAnimationFrame(loop);
+        raf = visible ? requestAnimationFrame(loop) : 0;
       };
-      requestAnimationFrame(loop);
+      const start = () => {
+        new IntersectionObserver(([e]) => {
+          visible = e.isIntersecting;
+          if (visible && !raf) { last = 0; raf = requestAnimationFrame(loop); }
+        }).observe(ecg);
+      };
+      // Wait until the page has loaded so the pulse doesn't compete with first paint.
+      const idle = window.requestIdleCallback || (fn => setTimeout(fn, 200));
+      if (document.readyState === 'complete') idle(start);
+      else addEventListener('load', () => idle(start), { once: true });
     }
   }
 
@@ -183,16 +201,48 @@
 
   /* ---------- Project filters ---------- */
   const chips = $$('.chip[data-filter]');
-  chips.forEach(chip => chip.addEventListener('click', () => {
-    chips.forEach(c => c.classList.toggle('is-active', c === chip));
-    const f = chip.dataset.filter;
-    $$('.projects .card').forEach(card => {
+  const cards = $$('.projects .card');
+  const applyFilter = (f, animateIn) => {
+    cards.forEach(card => {
       const show = f === 'all' || card.dataset.tags.split(' ').includes(f);
       card.classList.toggle('is-filtered', !show);
       card.classList.remove('is-entering');
-      if (show) { void card.offsetWidth; card.classList.add('is-entering', 'is-in'); }
+      if (show) {
+        card.classList.add('is-in');
+        if (animateIn) { void card.offsetWidth; card.classList.add('is-entering'); }
+      }
+    });
+  };
+  chips.forEach(chip => chip.addEventListener('click', () => {
+    chips.forEach(c => {
+      c.classList.toggle('is-active', c === chip);
+      c.setAttribute('aria-pressed', String(c === chip));
+    });
+    const f = chip.dataset.filter;
+    if (!document.startViewTransition || reduceMotion) return applyFilter(f, !reduceMotion);
+    // Cards glide from their old place to their new one.
+    cards.forEach((card, i) => (card.style.viewTransitionName = `card-${i}`));
+    root.classList.add('is-filtering');
+    document.startViewTransition(() => applyFilter(f, false)).finished.finally(() => {
+      cards.forEach(card => (card.style.viewTransitionName = ''));
+      root.classList.remove('is-filtering');
     });
   }));
+
+  /* ---------- Card cover morphs into the project page's colour band ---------- */
+  // The matching name on the project page is on .p-band (see style.css).
+  addEventListener('pageswap', e => {
+    const url = e.viewTransition && e.activation && e.activation.entry && e.activation.entry.url;
+    if (!url) return;
+    const path = new URL(url).pathname;
+    const link = $$('.card__link').find(a => new URL(a.href).pathname === path);
+    const media = link && $('.card__media', link.closest('.card'));
+    if (!media) return;
+    // Clear any name left over from an earlier visit (names must be unique).
+    $$('.card__media').forEach(m => (m.style.viewTransitionName = ''));
+    media.style.viewTransitionName = 'project-cover';
+    e.viewTransition.finished.finally(() => (media.style.viewTransitionName = ''));
+  });
 
   /* ---------- Timeline fill ---------- */
   const tl = $('.timeline');
